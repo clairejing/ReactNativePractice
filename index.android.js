@@ -14,38 +14,50 @@ import {
 class ReactNativePractice extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Text style={styles.base}/>
+      <View style={styles.background}/>
+      <View style={[styles.base, styles.background]}/>
+      <View style={[styles.base, this.state.active && styles.active]} />
+      <View style={[styles.base, {
+        width: this.state.width,
+        height: this.state.width * this.state.aspectRatio
+      }]}
+
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+
+var styles = StyleSheet.create({
+  base: {
+    width: 38,
+    height: 38,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  background: {
+    backgroundColor: '#222222',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  active: {
+    borderWidth: 2,
+    borderColor: '#00ff00',
+  }
 });
+
+
+var List = React.createClass({
+  propTypes: {
+    style: View.propTypes.style,
+    elementStyle: View.propTypes.style,
+  },
+  render: function(){
+    return (
+      <View style={this.props.style}>
+        {elements.map((element) => <View style={[styles.element, this.props.elementStyle]}/>)}
+      </View>
+    );
+  }
+});
+
+<List style={styles.list} elementStyle={styles.listElement}/>
+
 
 AppRegistry.registerComponent('ReactNativePractice', () => ReactNativePractice);
