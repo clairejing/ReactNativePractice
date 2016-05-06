@@ -61,5 +61,38 @@ var List = React.createClass({
 
 <List style={styles.list} elementStyle={styles.listElement}/>
 
+class Playground exntends React.Component{
+  constructor(props: any){
+    super(props);
+    this.state = {
+      bounceValue: new Animated.Value(0),
+    };
+  }
+  render(): ReactElement{
+    return (
+      <Animated.Image
+        source={{uri:'http://i.imgur.com/XMKOH81.jpg'}}
+        style={{
+          flex: 1,
+          transform: [
+            {scale: this.state.bounceValue},
+          ]
+        }}
+      />
+    );
+  }
+
+  componentDidMount(){
+    this.state.bounceValue.setValue(1.5);
+    Animated.spring(
+      this.state.bounceValue,
+      {
+        toValue: 0.8,
+        friction: 1,
+      }
+    ).start();
+  }
+}
+
 
 AppRegistry.registerComponent('ReactNativePractice', () => ReactNativePractice);
